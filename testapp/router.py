@@ -6,20 +6,24 @@ Functions
     index
         This is the route for '/' and '/index'
 """
-from flask import current_app
+# Importing template rendering engine.
+from flask import render_template
 
 
+# Routing functions.
 def router(app):
     """
-    Router function subroutines
+    Routing functions.
 
     Parameters
     ----------
     app : flask application
-        App to define routes for
+        App to define routes for.
     """
-    @current_app.route('/')
-    @current_app.route('/index')
+
+    # Index route.
+    @app.route('/')
+    @app.route('/index')
     def index():
         """
         Index Router Function.
@@ -29,5 +33,5 @@ def router(app):
         str
             HTML content to be displayed.
         """
-        return "<h1>Hello World!</h1>"
+        return render_template('index.html', title='Home')
     return
