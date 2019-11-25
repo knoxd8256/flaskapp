@@ -63,7 +63,7 @@ def login():
         db = getdb()
         error = None
         user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
+            'SELECT * FROM flaskuser WHERE username = ?', (username,)
         ).fetchone()
 
         if user is None or not check_password_hash(user['pword'], password):
@@ -94,11 +94,12 @@ def load_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = getdb.execute(
-            'SELECT * FROM user WHERE id = ?' (user_id,)
+        g.user = getdb().execute(
+            'SELECT * FROM flaskuser WHERE id = ?', (user_id,)
         ).fetchone()
 
 
+# Login requirement decorator.
 def login_required(view):
     @functools.wraps(view)
     def view_wrapper(**kwargs):
